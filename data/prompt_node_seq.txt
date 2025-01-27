@@ -1,0 +1,11 @@
+Your task is to determine the optimal sequence of nodes to design a system.
+Based on the available actions, generate the best possible order to meet the user's requirements.
+Available Nodes:
+$JSON_SCHEMA
+example:
+input: Navigate to a new page after a delay of 3 seconds when the user clicks a button.
+output: [OnClick, Delay, Navigate]
+
+Input:
+######
+$query

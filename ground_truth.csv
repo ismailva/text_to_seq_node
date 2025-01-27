@@ -1,0 +1,8 @@
+input,expected_sequence
+Navigate to a new page after a delay of 3 seconds when the user clicks a button.,"['OnClick', 'Delay', 'Navigate']"
+Fetch user data and display it in a modal when a button is clicked.,"['OnClick', 'FetchData', 'DisplayModal']"
+Reduce a list of scores to find the highest score and log the result.,"['Reduce', 'Log']"
+Cache fetched data to improve performance and display the data on the screen.,"['FetchData', 'CacheData', 'Show']"
+Log a message when a key is pressed and display the key value on the screen.,"['OnKeyPress', 'Log', 'Show']"
+Highlight an element when the mouse enters it and remove the highlight when the mouse leaves.,"['OnMouseEnter', 'Highlight', 'OnMouseLeave', 'Show']"
+Filter out items that are out of stock and sort the remaining items by price before displaying them on the screen.,"['Filter', 'Sort', 'Show']"
