@@ -10,6 +10,27 @@ class GPT(ABC):
 
     @abstractmethod
     def invoke(self,*args, **kwds):
+        """
+        Invokes the OpenAI API with the provided arguments and returns the response.
+
+        This method handles the core API interaction logic for all GPT model variants.
+        It processes both structured (with response_format) and unstructured responses.
+
+        Args:
+            *args: Variable length argument list passed to the OpenAI API call
+            **kwds: Arbitrary keyword arguments. Common parameters include:
+                - messages: List of message dictionaries with role and content
+                - response_format: Optional format specification for structured responses
+                - temperature: Controls randomness in the output (defaults to 0)
+                - model: The specific GPT model to use (set by child classes)
+
+        Returns:
+            str: For unstructured responses, returns the raw completion text
+                 For structured responses, returns a string representation of node sequence
+
+        Raises:
+            Exception: Prints any errors encountered during API interaction
+        """
         kwds.setdefault('temperature', 0)
         nodes_seq = []
         final_response = ""
@@ -30,12 +51,18 @@ class GPT(ABC):
 class GPT_4o_model(GPT):
     @timer("gpt 4o took: ")
     def invoke(self,*args, **kwds):
+        """
+        Invokes the GPT-4o model with the provided arguments and returns the response.
+        """
         kwds.setdefault('model', 'gpt-4o')
         return super().invoke(*args, **kwds)
 
 class GPT_4o_mini_model(GPT):
     @timer("gpt 4o mini took: ")
     def invoke(self,*args, **kwds):
+        """
+        Invokes the GPT-4o mini model with the provided arguments and returns the response.
+        """
         kwds.setdefault('model', 'gpt-4o-mini')
         return super().invoke(*args, **kwds)
 

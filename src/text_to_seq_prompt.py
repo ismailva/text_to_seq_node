@@ -11,7 +11,29 @@ from pydantic import BaseModel
 DATA_FOLDER = Path(__file__).parent.parent.joinpath("data")
 
 class TextToSeqPrompt(metaclass=SingletonClass):
+    """
+        Initializes the TextToSeqPrompt singleton class.
+
+        This method:
+        1. Reads the prompt template from 'prompt_node_seq.txt' file
+        2. Loads the node definitions from 'list_of_all_nodes.json'
+        3. Combines all node categories into a single dictionary
+        4. Creates an Enum class dynamically from the node definitions
+        5. Substitutes the JSON schema into the prompt template
+
+        The class is responsible for:
+        - Converting user text input into properly formatted prompts for LLM models
+        - Maintaining the mapping between node names and their semantic meanings
+        - Ensuring consistent node sequence generation across the application
+        - Supporting multiple prompt formats for different model types
+
+        The singleton pattern ensures only one instance exists to maintain prompt consistency and avoid redundant IO operations.
+
+        Additional methods can be added to support different prompt formats for various model types beyond the default GPT format.
+        This allows the class to be extended to handle new model-specific prompt requirements while maintaining a consistent interface.
+        """
     def __init__(self):
+        
         with open(DATA_FOLDER.joinpath("prompt_node_seq.txt"), "r") as file:
             temp = Template(file.read())
         with open(DATA_FOLDER.joinpath("list_of_all_nodes.json"), "r") as file:
@@ -25,6 +47,9 @@ class TextToSeqPrompt(metaclass=SingletonClass):
         self.prompt = Template(temp.safe_substitute(JSON_SCHEMA=json_text))
     
     def convert_to_gpt_format(self, user_input):
+        """
+        Converts the user input into a format suitable for the GPT model.
+        """
         text_prompt = self.prompt.substitute(query=user_input)
         system_prompt, user_prompt = text_prompt.split(constants.SYSTEM_SEPARATOR)
         class SequenceOfNodes(BaseModel):

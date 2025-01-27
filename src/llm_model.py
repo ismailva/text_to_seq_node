@@ -4,6 +4,9 @@ from src.utils import SingletonClass
 from src.openai_model import GPT_4o_model, GPT_4o_mini_model
 
 class LLMModel(metaclass=SingletonClass):
+    """
+    This class is a singleton class that returns an instance of the LLM model.
+    """
     def get_model(model_name:str="gpt4o") -> Any:
         if model_name == "gpt4o":
             model_instance = GPT_4o_model()
