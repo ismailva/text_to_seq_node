@@ -38,3 +38,4 @@ if st.button("Send"):
 # run streamlit app
 # streamlit run main.py
 # python3 -m streamlit run main.py
+# uv export --format requirements-txt > requirements.txt
